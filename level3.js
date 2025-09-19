@@ -5,6 +5,53 @@ let score = 0;
 let questionsAsked = 0;
 let totalQuestions = 20;
 
+function randomQs(mode){
+    let operations;
+    let num1, num2;
+
+    switch (mode){
+        case `easy`:
+            operations = [`+`, `-`]
+            num1 = Math.floor(Math.random() * 10);
+            num2 = Math.floor(Math.random() * 10);
+            let op = operations[Math.floor(Math.random() * operations.length)];
+            return { q: `${num1} ${op} ${num2}`, a: eval(`${num1} ${op} ${num2}`) };
+            break;
+
+    
+        case `medium`:
+            operations = [`+`, `-`, `*`, `/`, `%`]
+            let Med = operations[Math.floor(Math.random() * operations.length)];
+            if (Med === `+` || Med === `-`){
+            num1 = Math.floor(Math.random() * 90) + 10;
+            num2 = Math.floor(Math.random() * 90) + 10;
+            
+    } else {
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+}
+ return {q: `${num1} ${Med} ${num2}`, a: eval(`${num1} ${Med} ${num2}`)};
+
+
+ case `hard`:
+     operations = [`+`, `-`, `*`, `/`, `%`]
+     let hard = operations[Math.floor(Math.random() * operations.length)];
+     if (hard === `+` || hard == `-`){
+        num1 = Math.floor(Math.random() * 900) + 100; 
+        num2 = Math.floor(Math.random() * 900) + 100;
+        return { q: `${num1} ${hard} ${num2}`, a: eval(`${num1} ${hard} ${num2}`) };
+
+            } 
+            else {
+                num1 = Math.floor(Math.random() * 90) + 10; 
+                num2 = Math.floor(Math.random() * 9) + 1;   
+            return { q: `${num1} ${hard} ${num2}`, a: eval(`${num1} ${hard} ${num2}`) };
+            }
+    }
+}
+
+
+
 let choice = prompt(`Welcome to the quiz of doom, Please choose either 1 for Max or 2 for three point game.`)
 
 //this is saying if they choose something other than 1,2 make them restart the program.
@@ -14,30 +61,21 @@ if(choice !== `1` && choice !== `2` ) {
    process.exit();
 }
 
+let mode = prompt(`Choose your game mode twin. easy,medium,or hard.`)
+if (!['easy', 'medium', 'hard'].includes(mode)) {
+    console.log(`twain that ain't a valid mode.`);
+    process.exit();
+}
+
+
     else if (choice === `2`){
    console.log(` yo andddd u choose 2... lets hope it works`)
 
    let lives = 3;
    let correctAnswers = 0;
-
-function randomQs(){
-   const operations = ['+', '-', '*', '/'];
-   const randoIndex = Math.floor(Math.random() * operations.length);
-   const randoOp = operations[randoIndex];
-
-    const num1 = Math.floor(Math.random() * 11);
-    //So this is saying to skip 0's but only going from 1 - 10 while using division 
-    const num2 = randoOp === `/` ? Math.floor(Math.random() * 10)+1 : Math.floor(Math.random() * 11)
-
-    const question = `${num1} ${randoOp} ${num2}`;
-//remember to call ur function
-    let answer = eval(question);
-    return {q:`${num1} ${randoOp} ${num2}`, a: answer};
-
-    }
     
     for (let y = 0; y < totalQuestions; y++){
-        const {q, a} = randomQs();
+        const {q, a} = randomQs(mode);
         let uA = prompt(`Question ${y+1}: What is ${q}?`);
     let answer = Number(uA);
 
@@ -60,7 +98,10 @@ function randomQs(){
     if (lives === 0) {
     console.log(`5 barred fn. Your score is ${score} while getting ${correctAnswers} correct answers`);
     break;
-    } else {`Wow, you actually made it to the end.. Score: ${score} ${correctAnswers}`}
+    } else{
+        console.log(`Wow, you actually made it to the end.. Score: ${score} ${correctAnswers}`)}
+}
+
      
  if (correctAnswers === 20){
         console.log(`You are a goat twain.`);
@@ -79,6 +120,7 @@ function randomQs(){
     else if (correctAnswers < 15){
         console.log(`not bad i guess i could do better tho *aura farms*`);
     } 
+ 
    
  
 
@@ -86,53 +128,29 @@ function randomQs(){
     
 
         //this is saying if choosen 1 say that they choose the first game and list questions
-        if(choice === `1`){
+        if(choice === `1`) {
             console.log(`Nice, you choose the max questions game`); 
+        }
     
-         //array of doom
-            const questions = [
-        { q: `2+2`, a: 4 },
-        { q: `8-2`, a: 6 },
-        { q: `5*5`, a: 25 },
-        { q: `24/3`, a: 8 },
-        { q: `9+8`, a: 17 },
-        { q: `8-7`, a: 1 },
-        { q: `10*11`, a: 110 },
-        { q: `32/8`, a: 4 },
-        { q: `6+7`, a: 13 },
-        { q: `9-2`, a: 7 },
-        { q: `13*3`, a: 39 },
-        { q: `6/2`, a: 3 },
-        { q: `5+5`, a: 10 },
-        { q: `0-0`, a: 0 },
-        { q: `8*8`, a: 64 },
-        { q: `100/20`, a: 5 },
-        { q: `25+12`, a: 37 },
-        { q: `96-92`, a: 4 },
-        { q: `125/5`, a: 25 },
-        { q: `4+3`, a: 7 },
-        { q: `1-1`, a: 0 },
-    ];
 
 
 let questionsRight = 0
 
-    for (let x = 0; x < totalQuestions; x++){
-    //So this will allow the question number to keep counting till 20 and also asks the question by looping the array
-    let uA = prompt(`Question ${x+1}: What is ${questions[x]. q}.`);
-    let answer = Number(uA);
+for (let x = 0; x < totalQuestions; x++) {
+        const { q, a } = randomQs(mode);
+        let uA = prompt(`Question ${x + 1}: What is ${q}? `);
+        let answer = Number(uA);
         
-
     if (isNaN(answer)){
         console.log(`cant reconize that one twain. score:${score} + 0`)
         continue;
     }
-        if (answer === questions[x].a){
+        if (Math.abs(answer - a) < 0.01){
             console.log('You got it right.. cool man.')
             questionsRight++;
             score+=5;
         }   else {
-            console.log(`...you might be wrong...somehow. Answer is ${questions[x].a}... you got it next time forsho. ig.`);
+            console.log(`...you might be wrong...somehow. Answer is ${a}... you got it next time forsho. ig.`);
 
         }
         questionsAsked++;
@@ -151,7 +169,7 @@ let questionsRight = 0
                 else if (questionsRight < 5){
             console.log(`... are we fr rn...`);
     }   
-     }  
+     
 
-    }
+    
     
