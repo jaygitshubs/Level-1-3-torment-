@@ -4,6 +4,7 @@ const prompt = require(`prompt-sync`)();
 let score = 0;
 let questionsAsked = 0;
 let totalQuestions = 20;
+let correctAnswers = 0;
 
 function randomQs(mode){
     let operations;
@@ -16,7 +17,7 @@ function randomQs(mode){
             num2 = Math.floor(Math.random() * 10);
             let op = operations[Math.floor(Math.random() * operations.length)];
             return { q: `${num1} ${op} ${num2}`, a: eval(`${num1} ${op} ${num2}`) };
-            break;
+            
 
     
         case `medium`:
@@ -25,6 +26,7 @@ function randomQs(mode){
             if (Med === `+` || Med === `-`){
             num1 = Math.floor(Math.random() * 90) + 10;
             num2 = Math.floor(Math.random() * 90) + 10;
+            return { q: `${num1} ${op} ${num2}`, a: eval(`${num1} ${op} ${num2}`) };
             
     } else {
         num1 = Math.floor(Math.random() * 10) + 1;
@@ -40,6 +42,7 @@ function randomQs(mode){
         num1 = Math.floor(Math.random() * 900) + 100; 
         num2 = Math.floor(Math.random() * 900) + 100;
         return { q: `${num1} ${hard} ${num2}`, a: eval(`${num1} ${hard} ${num2}`) };
+        
 
             } 
             else {
@@ -69,10 +72,11 @@ if (!['easy', 'medium', 'hard'].includes(mode)) {
 
 
     else if (choice === `2`){
+        
    console.log(` yo andddd u choose 2... lets hope it works`)
 
    let lives = 3;
-   let correctAnswers = 0;
+   
     
     for (let y = 0; y < totalQuestions; y++){
         const {q, a} = randomQs(mode);
@@ -130,7 +134,7 @@ if (!['easy', 'medium', 'hard'].includes(mode)) {
         //this is saying if choosen 1 say that they choose the first game and list questions
         if(choice === `1`) {
             console.log(`Nice, you choose the max questions game`); 
-        }
+        
     
 
 
@@ -170,6 +174,6 @@ for (let x = 0; x < totalQuestions; x++) {
             console.log(`... are we fr rn...`);
     }   
      
-
+        }
     
     
